@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blockstream — Content Strategy Pills by MariJ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0C0C0F;
+            --bg-card: #111316;
+            --bg-card-alt: #161920;
+            --accent: #00C3FF;
+            --accent-secondary: #22E1C9;
+            --accent-warm: #FF9517;
+            --text: #d0d0d0;
+            --text-dim: #777;
+            --text-bright: #fff;
+            --border: #222530;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            padding: 60px 24px;
+        }
+
+        /* Header */
+        .header {
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 40px;
+            margin-bottom: 48px;
+        }
+        .header h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            color: var(--text-bright);
+            margin-bottom: 12px;
+        }
+        .header h1 span { color: var(--accent); }
+        .header .subtitle {
+            font-size: 1.05rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+            max-width: 600px;
+        }
+        .header .author {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+        }
+        .header .author strong { color: var(--text); }
+
+        /* TOC */
+        .toc {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 28px 32px;
+            margin-bottom: 56px;
+        }
+        .toc h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+        .toc ol {
+            list-style: none;
+            counter-reset: toc;
+        }
+        .toc li {
+            counter-increment: toc;
+            margin-bottom: 8px;
+        }
+        .toc li::before {
+            content: counter(toc) ".";
+            color: var(--accent);
+            font-weight: 600;
+            margin-right: 10px;
+            font-size: 0.9rem;
+        }
+        .toc a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+        .toc a:hover { color: var(--accent); }
+
+        /* Sections */
+        section { margin-bottom: 56px; }
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-bright);
+            margin-bottom: 24px;
+            padding-top: 8px;
+        }
+        h2 span { color: var(--accent); }
+        h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--text-bright);
+            margin-bottom: 12px;
+            margin-top: 28px;
+        }
+        p { margin-bottom: 16px; }
+        strong { color: var(--text-bright); font-weight: 600; }
+        a { color: var(--accent); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* Lists */
+        ul {
+            margin-bottom: 16px;
+            padding-left: 0;
+            list-style: none;
+        }
+        ul li {
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+        ul li::before {
+            content: "→";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-weight: 600;
+        }
+
+        /* Table */
+        .table-wrap { overflow-x: auto; margin-bottom: 24px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        thead th {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            text-align: left;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+        tbody tr:last-child td { border-bottom: none; }
+
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 28px;
+            margin-bottom: 20px;
+        }
+        .card.original { border-left: 3px solid var(--text-dim); }
+        .card.rewrite { border-left: 3px solid var(--accent); }
+        .card-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 14px;
+        }
+        .card.original .card-label { color: var(--text-dim); }
+        .card.rewrite .card-label { color: var(--accent); }
+        .card blockquote {
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text);
+        }
+        .card blockquote .arrow-line {
+            color: var(--accent-secondary);
+            font-weight: 600;
+        }
+        .card blockquote .hook {
+            color: var(--text-bright);
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        /* Analysis note */
+        .analysis-note {
+            background: var(--bg-card-alt);
+            border-radius: 8px;
+            padding: 24px 28px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            line-height: 1.7;
+        }
+        .analysis-note strong { color: var(--text); }
+
+        /* Think/Feel/Do */
+        .tfd {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .tfd-item {
+            background: var(--bg-card);
+            border-radius: 8px;
+            padding: 20px 24px;
+        }
+        .tfd-item .tfd-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 6px;
+        }
+        .tfd-item p { margin-bottom: 0; font-size: 0.95rem; }
+
+        /* Core values */
+        .values {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+        .value-tag {
+            background: var(--bg-card);
+            border: 1px solid var(--accent);
+            border-radius: 6px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        /* Divider */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 48px 0;
+        }
+
+        /* ==================== */
+        /* MOCK X POST          */
+        /* ==================== */
+        .x-post {
+            background: #000;
+            border: 1px solid #2F3336;
+            border-radius: 16px;
+            padding: 16px;
+            max-width: 550px;
+            margin: 24px auto;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        .x-post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .x-post-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #00C3FF, #22E1C9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            color: #000;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
+        .x-post-name {
+            font-weight: 700;
+            font-size: 15px;
+            color: #E7E9EA;
+            line-height: 1.2;
+        }
+        .x-post-handle {
+            font-size: 13px;
+            color: #71767B;
+        }
+        .x-post-body {
+            font-size: 15px;
+            color: #E7E9EA;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            white-space: pre-line;
+        }
+        .x-post-body .bold {
+            font-weight: 700;
+        }
+        .x-post-body .arrow {
+            color: var(--accent-secondary);
+            font-weight: 600;
+        }
+        .x-post-body .link {
+            color: #1D9BF0;
+        }
+        .x-post-image {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #2F3336;
+            margin-bottom: 12px;
+        }
+        .x-post-actions {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 8px;
+        }
+        .x-post-action {
+            font-size: 13px;
+            color: #71767B;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .x-post-action svg {
+            width: 18px;
+            height: 18px;
+            fill: #71767B;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding-top: 32px;
+            margin-top: 56px;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+        }
+        .footer a { color: var(--accent); text-decoration: none; }
+        .footer a:hover { text-decoration: underline; }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .container { padding: 40px 16px; }
+            .header h1 { font-size: 1.6rem; }
+            h2 { font-size: 1.3rem; }
+            .values { flex-direction: column; }
+            .x-post { margin: 24px 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Header -->
+        <header class="header">
+            <h1>Blockstream — <span>Content Strategy Pills</span></h1>
+            <p class="subtitle">A brief analysis of Blockstream's brand positioning, tone of voice, key challenges to address in content, and a practical example of how to improve post structure on X.</p>
+            <p class="author">By <strong>MariJ</strong> — February 2026</p>
+        </header>
+
+        <!-- TOC -->
+        <nav class="toc">
+            <h2>Contents</h2>
+            <ol>
+                <li><a href="#brand-promise">Brand Promise and Key Message</a></li>
+                <li><a href="#tone">Tone of Voice by Audience</a></li>
+                <li><a href="#challenges">Main Challenges to Counter</a></li>
+                <li><a href="#example">Post Rewrite Example</a></li>
+            </ol>
+        </nav>
+
+        <!-- Section 1 -->
+        <section id="brand-promise">
+            <h2><span>1.</span> Brand Promise and Key Message</h2>
+            <h3>"The Future of Finance Runs on Bitcoin."</h3>
+            <p>Blockstream empowers individuals and institutions to secure, transact, and build on Bitcoin using open-source, verifiable, trust-minimized infrastructure.</p>
+
+            <div class="tfd">
+                <div class="tfd-item">
+                    <div class="tfd-label">Think</div>
+                    <p>Bitcoin is the foundation for a fairer, more efficient global financial system. It's not just an asset for speculation.</p>
+                </div>
+                <div class="tfd-item">
+                    <div class="tfd-label">Feel</div>
+                    <p>Confident that funds are truly secure through self-custody and cryptographic verification, free from trust in third parties.</p>
+                </div>
+                <div class="tfd-item">
+                    <div class="tfd-label">Do</div>
+                    <p>Adopt Blockstream's products. Jade wallet for self-custody, Blockstream App for Bitcoin access, Liquid Network for faster transactions, and Blockstream Asset Management for institutional Bitcoin exposure.</p>
+                </div>
+            </div>
+
+            <h3>Core Values</h3>
+            <div class="values">
+                <span class="value-tag">Permissionless innovation</span>
+                <span class="value-tag">Don't trust, verify</span>
+                <span class="value-tag">Open finance for everyone</span>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Section 2 -->
+        <section id="tone">
+            <h2><span>2.</span> Tone of Voice by Audience</h2>
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Audience</th>
+                            <th>Tone</th>
+                            <th>Do</th>
+                            <th>Don't</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Developers</strong></td>
+                            <td>Direct, precise, technical</td>
+                            <td>Show code, link to repos, be honest about limitations</td>
+                            <td>Use marketing buzzwords, oversimplify, use metaphors</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bitcoiners</strong></td>
+                            <td>Cypherpunk, principled, grounded</td>
+                            <td>Reference Bitcoin culture, emphasize self-custody and verification</td>
+                            <td>Use altcoin/DeFi hype language or references</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Enterprise</strong></td>
+                            <td>Professional, evidence-based, measured</td>
+                            <td>Lead with data, case studies, regulatory awareness</td>
+                            <td>Overpromise, ignore compliance concerns</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Institutional</strong></td>
+                            <td>Formal, structured, risk-aware</td>
+                            <td>Speak in portfolio theory, cite fund structures, reference credible names</td>
+                            <td>Use crypto slang, assume Bitcoin literacy, base on ideology</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Section 3 -->
+        <section id="challenges">
+            <h2><span>3.</span> Main Challenges to Counter</h2>
+
+            <h3>"Nobody uses Liquid"</h3>
+            <p>Counter with quarterly metrics reports, federation growth announcements, partner spotlights, and Liquid ecosystem maps. Let the data speak.</p>
+
+            <h3>"Liquid is federated = centralized"</h3>
+            <p>Push transparency around functionary operations. Tailor the message by audience: the maximalist purist can use it for small amounts and faster transactions; the enterprise user gets faster settlement and Confidential Transactions.</p>
+
+            <h3>"All hardware wallets are the same"</h3>
+            <p>Highlight what makes Jade genuinely different: fully open-source (hardware and firmware), air-gapped via QR codes, no proprietary secure element chip with potential backdoors, security disclosure transparency, and a lower price point than competitors.</p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Section 4 -->
+        <section id="example">
+            <h2><span>4.</span> Post Rewrite Example</h2>
+
+            <p>Below is a real Blockstream post from X, followed by a proposed rewrite. The goal: same information, better structure for how people actually read on mobile.</p>
+
+            <!-- Original post -->
+            <h3>Original post</h3>
+            <p style="font-size: 0.9rem; color: var(--text-dim);">Source: <a href="https://x.com/Liquid_BTC/status/2021160805303992654?s=20">Blockstream on X — Simplicity / options post</a></p>
+
+            <div class="card original">
+                <div class="card-label">Original</div>
+                <blockquote>
+                    Bitcoin options infrastructure is being built without trusting an exchange, an oracle, or a counterparty. Simplicity enables on-chain options with high assurance smart contracting. No price feeds to manipulate. No smart contract exploits by design.
+                </blockquote>
+            </div>
+
+            <div class="analysis-note">
+                <strong>What could improve:</strong> The opening line is strong but the structure is flat. Four dense sentences with no visual hierarchy, so the reader's eye gets lost. The two most powerful lines ("No price feeds to manipulate. No smart contract exploits by design.") are buried at the end where most people stop reading. On mobile, this renders as a wall of text. No call to action, no link, no thread hook.
+            </div>
+
+            <!-- Proposed rewrite as mock X post -->
+            <h3>Proposed rewrite</h3>
+
+            <div class="x-post">
+                <div class="x-post-header">
+                    <div class="x-post-avatar">B</div>
+                    <div>
+                        <div class="x-post-name">Blockstream</div>
+                        <div class="x-post-handle">@Blockstream</div>
+                    </div>
+                </div>
+                <div class="x-post-body"><span class="bold">Bitcoin options. On-chain. No counterparty.</span>
+
+Simplicity makes it possible:
+
+<span class="arrow">→</span> No exchange to trust
+<span class="arrow">→</span> No oracle to manipulate
+<span class="arrow">→</span> No smart contract exploits: by design!
+
+High-assurance smart contracting, formally verifiable. Now live on Liquid.
+
+<span class="link">simplicity-lang.org</span></div>
+                <img src="simplicity-post.png" alt="Simplicity — On-chain options, no middleman" class="x-post-image">
+                <div class="x-post-actions">
+                    <div class="x-post-action">
+                        <svg viewBox="0 0 24 24"><path d="M1.751 10c0-4.42 3.584-8 8.005-8h4.366c4.49 0 8.129 3.58 8.129 8 0 3.89-2.879 7.11-6.622 7.74l-.06.01c-.32.05-.474.33-.338.62.054.12.094.2.122.26l.07.15c.095.19.186.39.264.59.068.18.02.39-.12.52-.14.12-.34.15-.51.06-1.16-.59-2.04-1.3-2.64-1.88-.12-.12-.3-.16-.46-.12-.36.08-.74.14-1.13.17-.08.01-.17.01-.25.01h-.09c-4.42 0-8.005-3.58-8.005-8zM5.251 12h1.5v-1.5h-1.5V12zm4.5 0h1.5v-1.5h-1.5V12zm6 0h-1.5v-1.5h1.5V12z"/></svg>
+                    </div>
+                    <div class="x-post-action">
+                        <svg viewBox="0 0 24 24"><path d="M4.5 3.88l4.432 4.14-1.364 1.46L5.5 7.55V16c0 1.1.896 2 2 2H13v2H7.5c-2.209 0-4-1.79-4-4V7.55L1.432 9.48.068 8.02 4.5 3.88zM16.5 6H11V4h5.5c2.209 0 4 1.79 4 4v8.45l2.068-1.93 1.364 1.46-4.432 4.14-4.432-4.14 1.364-1.46 2.068 1.93V8c0-1.1-.896-2-2-2z"/></svg>
+                    </div>
+                    <div class="x-post-action">
+                        <svg viewBox="0 0 24 24"><path d="M16.697 5.5c-1.222-.06-2.679.51-3.89 2.16l-.805 1.09-.806-1.09C9.984 6.01 8.526 5.44 7.304 5.5c-1.243.07-2.349.78-2.91 1.91-.552 1.12-.633 2.78.479 4.82 1.074 1.97 3.257 4.27 7.129 6.61 3.87-2.34 6.052-4.64 7.126-6.61 1.111-2.04 1.03-3.7.477-4.82-.56-1.13-1.666-1.84-2.908-1.91zm4.187 7.69c-1.351 2.48-4.001 5.12-8.379 7.67l-.503.3-.504-.3c-4.379-2.55-7.029-5.19-8.382-7.67-1.36-2.5-1.41-4.86-.514-6.67.887-1.79 2.647-2.91 4.601-3.01 1.651-.09 3.368.56 4.798 2.01 1.429-1.45 3.146-2.1 4.796-2.01 1.954.1 3.714 1.22 4.601 3.01.896 1.81.846 4.17-.514 6.67z"/></svg>
+                    </div>
+                    <div class="x-post-action">
+                        <svg viewBox="0 0 24 24"><path d="M8.75 21V3h2v18h-2zM18.25 21V8.5h2V21h-2zM13.5 21V13h2v8h-2zM3.25 21v-6h2v6h-2z"/></svg>
+                    </div>
+                </div>
+            </div>
+
+            <div class="analysis-note">
+                <strong>Why it works better:</strong> The first line is the hook — three words, three punches, stops the scroll. The vertical list makes each "no X" scannable on mobile. Same content, better spacing, stronger hierarchy.
+            </div>
+
+            <h3>Visual note</h3>
+            <p>Post images across Blockstream's feed currently vary in style, layout, and color palette. A consistent card format — dark background, brand typeface for headings, one key visual element per post — would build instant recognition in the timeline, the same way a recurring column or segment works in editorial publishing.</p>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Prepared by <strong>MariJ</strong> · February 2026</p>
+            <p>Contact: <a href="mailto:marjjhodl@proton.me">marjjhodl@proton.me</a> · <a href="https://x.com/Maryive">@Maryive</a></p>
+        </footer>
+
+    </div>
+</body>
+</html>
