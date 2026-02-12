@@ -15,4 +15,4 @@ Created as part of my application for a content role at Blockstream.
 
 Enable GitHub Pages (Settings > Pages > Deploy from branch: `main`) and visit:
 
-`https://YOUR_USERNAME.github.io/Blockstream-application/`
+`https://marijjhodl.github.io/Blockstream-application/`
